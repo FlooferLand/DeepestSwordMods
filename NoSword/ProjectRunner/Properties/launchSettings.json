@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ProjectRunner": {
+      "commandName": "Project",
+      "workingDirectory": "$(SolutionDir)"
+    }
+  }
+}
