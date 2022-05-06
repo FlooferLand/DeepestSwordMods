@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using BepInEx;
 using HarmonyLib;
 
-namespace NoSword
+namespace JumpMod
 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     public class Plugin : BaseUnityPlugin
