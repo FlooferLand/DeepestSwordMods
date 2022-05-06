@@ -14,8 +14,8 @@ using (StreamReader sr = new StreamReader("./BuildVars/deepest_sword_path.txt"))
 
 dsPlugins = Path.Combine(dsDir, "BepInEx", "Plugins");
 dsExec = Path.Combine(dsDir, "Deepest Sword");
-pluginFileInput = Path.Combine("NoSword", "bin", "Debug", "netstandard2.1", "NoSword.dll");
-pluginFileOutput = Path.Combine(dsPlugins, "NoSword.dll");
+pluginFileInput = Path.Combine("JumpMod", "bin", "Debug", "netstandard2.1", "JumpMod.dll");
+pluginFileOutput = Path.Combine(dsPlugins, "JumpMod.dll");
 
 // Moving files over
 if (File.Exists(pluginFileOutput))

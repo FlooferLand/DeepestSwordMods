@@ -9,9 +9,11 @@ namespace NoSword
     public class Plugin : BaseUnityPlugin
     {
         PlayerController playerController;
-        PlayerActor playerActor = null;
-        SpriteRenderer playerSprite = null;
-        Rigidbody2D playerBody = null;
+        PlayerActor playerActor;
+        SpriteRenderer playerSprite;
+        Rigidbody2D playerBody;
+        GameObject sword;
+
         private void Awake()
         {
             Logger.LogInfo("The power of \"no bitches\" compels you. You can now jump.");
@@ -28,6 +30,7 @@ namespace NoSword
                 playerActor  = GameObject.Find("[PlayerController]/[Player]").GetComponent<PlayerActor>();
                 playerSprite = GameObject.Find("[PlayerController]/[Player]/Model/Sprite").GetComponent<SpriteRenderer>();
                 playerBody   = playerActor.gameObject.GetComponent<Rigidbody2D>();
+                sword = GameObject.Find("[PlayerController]/[Player]/Sword");
             }
         }
 
@@ -35,15 +38,20 @@ namespace NoSword
         double jumpForce = defaultJumpForce;
         private void Update()
         {
+            if (playerController._allowControl && Input.GetKeyDown(KeyCode.E))
+            {
+                sword.SetActive(!sword.activeSelf);
+            }
+
             if (playerController._allowControl && playerActor._isGrounded)
             {
                 if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
                 {
-                    if (jumpForce < 50)
+                    if (jumpForce < (sword.activeSelf ? 50 : 25))
                         jumpForce += (60 * Time.deltaTime);
                     playerSprite.transform.localScale = new Vector2(
                         playerSprite.transform.localScale.x,
-                        0.5f + ((float)jumpForce / 90)
+                        0.5f + (((float)jumpForce / 90) * (sword.activeSelf ? 1f : 2f))
                     );
                     // Logger.LogInfo($"jumpForce = {jumpForce}");
                 }
@@ -59,7 +67,8 @@ namespace NoSword
             }
             else
             {
-                jumpForce = 0f;
+                jumpForce = defaultJumpForce;
+                playerSprite.transform.localScale = Vector2.one;
             }
         }
     }
